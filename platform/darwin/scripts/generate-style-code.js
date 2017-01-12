@@ -8,9 +8,15 @@ const colorParser = require('csscolorparser');
 require('../../../scripts/style-code');
 
 const cocoaConventions = require('./style-spec-cocoa-conventions-v8.json');
-let spec = _.merge(require('mapbox-gl-style-spec').latest, require('./style-spec-overrides-v8.json'));
 const prefix = 'MGL';
 const suffix = 'StyleLayer';
+
+let spec = _.merge(require('mapbox-gl-style-spec').latest, require('./style-spec-overrides-v8.json'));
+
+///
+// Temporarily IGNORE layers that are in the spec yet still not supported in mbgl core
+///
+delete spec.layer.type.values['fill-extrusion'];
 
 // Rename properties and keep `original` for use with setters and getters
 _.forOwn(cocoaConventions, function (properties, kind) {
@@ -388,10 +394,6 @@ var allPaintProperties = [];
 var allTypes = [];
 
 for (var layer of layers) {
-
-    // Ignore layers that are in the spec yet still not supported in mbgl core
-    if (layer.type === 'fill-extrusion') { continue; }
-
     allLayoutProperties.push(layer.layoutProperties);
     allPaintProperties.push(layer.paintProperties);
     allTypes.push(layer.type);
