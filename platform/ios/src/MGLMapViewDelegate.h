@@ -228,7 +228,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable MGLAnnotationImage *)mapView:(MGLMapView *)mapView imageForAnnotation:(id <MGLAnnotation>)annotation;
 
-- (CGFloat)mapView:(MGLMapView *)mapView alphaForShapeAnnotation:(MGLShape *)annotation __attribute__((deprecated("Use -mapView:strokeColorForShapeAnnotation: or -mapView:fillColorForPolygonAnnotation:.")));
+/**
+ Returns the alpha value to use when rendering a shape annotation.
+
+ A value of `0.0` results in a completely transparent shape. A value of `1.0`,
+ the default, results in a completely opaque shape.
+
+ @param mapView The map view rendering the shape annotation.
+ @param annotation The annotation being rendered.
+ @return An alpha value between `0` and `1.0`.
+ */
+- (CGFloat)mapView:(MGLMapView *)mapView alphaForShapeAnnotation:(MGLShape *)annotation;
 
 /**
  Returns the color to use when rendering the outline of a shape annotation.
